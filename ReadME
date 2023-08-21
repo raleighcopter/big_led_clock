@@ -1,5 +1,7 @@
 Some notes...Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress.
 
+THE 433 MHZ functionality is not incorporated yet.
+
 The 3v converter can be omitted but you won't be able to set the brightness of the LEDs if you do so play with the value of the series resistors for the LEDs. You want at least 100 ohm series resistors, possibly higher.
   
 You can omit the DST switch and just use the hour offset pot to adjust the hour for DST.
