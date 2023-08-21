@@ -1,16 +1,6 @@
 #include <TinyGPS++.h>
 
 /*
-the display is wired to digital pins according to the Archer datasheet as follows
-
-         _____     _____        _____      _____  
-        / 25 /    / 16 /       /  9 /     / 2  /
-       /26  /31  /17  /24 o   /10  /15   /3   /8
-      /____/    /____/   13  /____/     /____/  
-     / 28 /    / 52 /   o   / 12 /     /  5 /
-    /27  /30  /53  /23     /11  /14   /4   /7
-   /____/    /____/       /____/     /____/  
-    29        22           13          6     
 
 the segments of the digits are labeled as follows
          _____    
