@@ -1,5 +1,6 @@
 Big Clock
 
+![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/clock.jpg)
 
 Some notes...
 
