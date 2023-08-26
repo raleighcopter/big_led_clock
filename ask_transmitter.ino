@@ -1,3 +1,8 @@
+//transmits temp and relative humidity data. 
+//uses an si7021 sensor and cheap 433 MHz transmitter.
+//the transmitter connects to D2. 
+//sends a new set of data about every second.
+
 #include "Adafruit_Si7021.h"
 #include <RH_ASK.h>
 #ifdef RH_HAVE_HARDWARE_SPI
@@ -6,10 +11,6 @@
 Adafruit_Si7021 sensor = Adafruit_Si7021();
 
 RH_ASK driver(2000, 0, 2, 0);
-// RH_ASK driver(2000, 4, 5, 0); // ESP8266 or ESP32: do not use pin 11 or 2
-// RH_ASK driver(2000, 3, 4, 0); // ATTiny, RX on D3 (pin 2 on attiny85) TX on D4 (pin 3 on attiny85), 
-// RH_ASK driver(2000, PD14, PD13, 0); STM32F4 Discovery: see tx and rx on Orange and Red LEDS
-
 
 void setup()
 {
