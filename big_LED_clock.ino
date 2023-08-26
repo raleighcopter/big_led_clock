@@ -1,6 +1,5 @@
-#include <TinyGPS++.h>
-
 /*
+
 
 the segments of the digits are labeled as follows
          _____    
@@ -15,9 +14,15 @@ the segments of the digits are labeled as follows
 the pot is wired to A15, gnd, 5v
 the gps is wired to serial3 (14,15)
 the DST switch is wired to D48
-the RF Receiver is wired to D50
+the RF Receiver is wired to D40
 
 */
+#include <TinyGPS++.h>
+#include <RH_ASK.h>
+#ifdef RH_HAVE_HARDWARE_SPI
+#include <SPI.h> // Not actually used but needed to compile
+#endif
+RH_ASK driver(2000, 40, 0, 0);
 
 static const uint32_t GPSBaud = 9600;
 int on = 1;
@@ -82,11 +87,26 @@ int minutes_one = 0;
 int nite_off = 22;
 int morning_on = 7;
 int dim_level = 5;
+int weather_time = 0;
+int weather_valid = 0;
+int Temp;
+int RH;
+
 TinyGPSPlus gps;
 
 void setup()
 {
-//  Serial.begin(115200);
+
+#ifdef RH_HAVE_SERIAL
+    Serial.begin(9600);	  // Debugging only
+#endif
+    if (!driver.init())
+#ifdef RH_HAVE_SERIAL
+         Serial.println("init failed");
+#else
+         Serial.println("init success");	;
+#endif
+
   Serial3.begin(GPSBaud);
 
   pinMode(hours_ten_a, OUTPUT);
@@ -122,7 +142,21 @@ void setup()
 
 void loop()
 {
-  // This sketch displays information every time a new sentence is correctly encoded.
+//get weather data if available
+  int data[2] = {0};
+      uint8_t buflen = sizeof(data);
+    if (driver.recv((uint8_t*)data, &buflen));
+   {
+  if (data[0] != 0) {  //throw away bad data
+    RH = data[0];
+    Temp = data[1];
+    weather_time =  seconds; //record time of weather aquisition
+    weather_valid = 1; //mark weather as valid
+  }
+}
+
+
+  // This sketch displays information every time a new NMEA sentence is correctly encoded.
   while (Serial3.available() > 0)
     if (gps.encode(Serial3.read()))
       displayInfo();
@@ -146,11 +180,19 @@ void displayInfo()
   seconds = gps.time.second();
 
   hours = hours + hour_offset;
+
+
+
+//invalidate weather data that's too old
+if (seconds - weather_time >= 10) {
+  weather_valid = 0;
+}
+//weather_valid = 0;
 //adjust to 24 hour local time
   if (hours > 24) hours = hours - 24;
   if (hours < 1) hours = hours + 24;
 
-// dim during off hours
+// dim during off hours and weather display time
     if ((hours > nite_off) or (hours < morning_on)) {
     on = 0; 
     hi_dot = dim_level;
@@ -164,34 +206,64 @@ void displayInfo()
   if (hours > 12) hours = hours - 12;
   if (hours < 1) hours = hours + 12;
    }
-// calculate values for separate digits
 
 
-hours_ten = (hours/10);
-hours_one = (hours - (10 * hours_ten));
-minutes_ten = (minutes/10);
-minutes_one = (minutes - (10 * minutes_ten));
-
-//do colon stuff....
-
-dot_count = seconds % 2;
-
-switch(dot_count)
-{
-  case 0: colon_val = hi_dot; break;
-  case 1: colon_val = lo_dot; break; 
+//determine if we should display time or temp
+if ((weather_valid == 1) and seconds % 15 >= 13) {
+//display RH
+    colon_val = lo_dot;
+    hours_ten = (RH/10);
+    hours_one = (RH - (10 * hours_ten));
+    minutes_ten = 11;
+    minutes_one = 12;
 }
 
+if ((weather_valid == 1) and (seconds % 15 >= 11 and seconds %15 < 13) ) {
+  colon_val = lo_dot;
+//display temp
+  if (Temp < 0) {
+    Temp = abs(Temp);
+    hours_ten = 10;
+    hours_one = (Temp/10);
+    minutes_ten = (Temp - (10 * hours_one));
+    minutes_one = 10;
+  } else if ((Temp >=0) and (Temp <100)) {
+    hours_ten = (Temp/10);
+    hours_one = (Temp - (10 * hours_ten));
+    minutes_ten = 10;
+    minutes_one = 11;
+  } else if (Temp >99) {
+    hours_ten = 1;
+    Temp = Temp - 100;
+    hours_one = (Temp/10);
+    minutes_ten = (Temp - (10 * hours_ten));
+    minutes_one = 10;      
+    }
+}
+
+if ((seconds % 15 <= 10) or (weather_valid == 0))  {
+//display time
+// calculate values for separate digits to display time
+  hours_ten = (hours/10);
+  hours_one = (hours - (10 * hours_ten));
+  minutes_ten = (minutes/10);
+  minutes_one = (minutes - (10 * minutes_ten));
+
+//do colon stuff....
+  dot_count = seconds % 2;
+
+  switch(dot_count)
+  {
+    case 0: colon_val = hi_dot; break;
+    case 1: colon_val = lo_dot; break; 
+  }
+}
+
+
+//do display stuff
 // write colon
 
 analogWrite(colon, colon_val);
-
-//Serial.print (hour_offset);
-//Serial.print (hours_ten);
-//Serial.print (hours_one);
-//Serial.print (minutes_ten);
-//Serial.print (minutes_one);
-//Serial.println();
 
 // set the display segments
 
@@ -206,7 +278,8 @@ switch(hours_ten)
   case 6: a=on;b=off;c=on;d=on;e=on;f=on;g=on;break;
   case 7: a=on;b=on;c=on;d=off;e=off;f=off;g=off;break;
   case 8: a=on;b=on;c=on;d=on;e=on;f=on;g=on;break;
-  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;      
+  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;
+  case 10: a=off;b=off;c=off;d=off;e=off;f=off;g=on;break; // - symbol    
 }
 // write hours_ten digit display pins
   
@@ -252,7 +325,9 @@ switch(minutes_ten)
   case 6: a=on;b=off;c=on;d=on;e=on;f=on;g=on;break;
   case 7: a=on;b=on;c=on;d=off;e=off;f=off;g=off;break;
   case 8: a=on;b=on;c=on;d=on;e=on;f=on;g=on;break;
-  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;       
+  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;
+  case 10: a=on;b=on;c=off;d=off;e=off;f=on;g=on;break; // degree symbol
+  case 11: a=off;b=off;c=off;d=off;e=on;f=off;g=on;break; //r      
 }
 // write minutes_ten digit display pins
   
@@ -275,7 +350,10 @@ switch(minutes_one)
   case 6: a=on;b=off;c=on;d=on;e=on;f=on;g=on;break;
   case 7: a=on;b=on;c=on;d=off;e=off;f=off;g=off;break;
   case 8: a=on;b=on;c=on;d=on;e=on;f=on;g=on;break;
-  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;          
+  case 9: a=on;b=on;c=on;d=off;e=off;f=on;g=on;break;
+  case 10: a=on;b=on;c=off;d=off;e=off;f=on;g=on;break; // degree symbol
+  case 11: a=on;b=off;c=off;d=off;e=on;f=on;g=on;break; // F
+  case 12: a=off;b=off;c=on;d=off;e=on;f=on;g=on;break; //h           
 }
 // write minutes_one digit display pins
   
