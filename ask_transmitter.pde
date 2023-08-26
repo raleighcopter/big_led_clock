@@ -41,5 +41,5 @@ data[1] = (1.8 * (sensor.readTemperature() + 0.5) +32),2;
     driver.send((uint8_t*)data,4);
     driver.waitPacketSent();
     Serial.print("Sent: ");Serial.print(data[0]);Serial.println(data[1]);
-    delay(10000);
+    delay(1000);
 }
