@@ -1,5 +1,7 @@
 //transmits temp and relative humidity data. 
+//build on arduino nano or pro mini.
 //uses an si7021 sensor and cheap 433 MHz transmitter.
+//remove the power LED and the green LED from teh si7021
 //the transmitter connects to D2. 
 //sends a new set of data about every second.
 
