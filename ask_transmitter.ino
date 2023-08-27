@@ -39,8 +39,8 @@ void loop() {
   Serial.print("\tTemperature: ");
   Serial.println(sensor.readTemperature(), 2);
 int data[2];
-data[0] = (sensor.readHumidity() + .5),2;
-data[1] = (1.8 * (sensor.readTemperature() + 0.5) +32),2;
+data[0] = (sensor.readHumidity()),2;
+data[1] = (1.8 * sensor.readTemperature() +32),2;
     driver.send((uint8_t*)data,4);
     driver.waitPacketSent();
     Serial.print("Sent: ");Serial.print(data[0]);Serial.println(data[1]);
