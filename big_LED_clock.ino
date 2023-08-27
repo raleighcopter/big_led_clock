@@ -59,9 +59,9 @@ int minutes_one_d = 5;
 int minutes_one_e = 4;
 int minutes_one_f = 3;
 int minutes_one_g = 8;
+int colon = 13;
 
 int dot_count;
-int colon = 13;
 int colon_val;
 int hi_dot = 255;
 int lo_dot = 0;
