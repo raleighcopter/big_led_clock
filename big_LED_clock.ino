@@ -84,9 +84,9 @@ int hours_ten = 0;
 int hours_one = 0;
 int minutes_ten = 0;
 int minutes_one = 0;
-int nite_off = 22;
-int morning_on = 7;
-int dim_level = 5;
+int nite_off = 22;  //dim after this hour. set to 24 to disable
+int morning_on = 7; //dim before this hour. set to 0 to disable
+int dim_level = 5;  // the brightness of the colon during dim hours
 int weather_time = 0;
 int weather_valid = 0;
 int Temp;
@@ -192,7 +192,7 @@ if (seconds - weather_time >= 10) {
   if (hours > 24) hours = hours - 24;
   if (hours < 1) hours = hours + 24;
 
-// dim during off hours and weather display time
+// dim during off hours
     if ((hours > nite_off) or (hours < morning_on)) {
     on = 0; 
     hi_dot = dim_level;
@@ -236,7 +236,7 @@ if ((weather_valid == 1) and (seconds % 15 >= 11 and seconds %15 < 13) ) {
     hours_ten = 1;
     Temp = Temp - 100;
     hours_one = (Temp/10);
-    minutes_ten = (Temp - (10 * hours_ten));
+    minutes_ten = (Temp - (10 * hours_one));
     minutes_one = 10;      
     }
 }
