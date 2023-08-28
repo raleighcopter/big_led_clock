@@ -43,8 +43,8 @@ void loop() {
 //  Serial.print("\tTemperature: ");
 //  Serial.println(sensor.readTemperature(), 2);
 int data[2];
-data[0] = (sensor.readHumidity()),2;
-data[1] = (1.8 * (sensor.readTemperature() * 0.95) +32),2; //sensor readings are 5% high at full scale and accurate at zero. the .95 facotor corrects this
+data[0] = (sensor.readHumidity() * .92),2; //sensor readings are high. the .92 factor corrects this
+data[1] = (1.8 * (sensor.readTemperature() - 1.5) +32),2; //sensor readings are high. the -1.5 factor corrects this
     driver.send((uint8_t*)data,4);
     driver.waitPacketSent();
   //  Serial.print("Sent: ");Serial.print(data[0]);Serial.println(data[1]);
