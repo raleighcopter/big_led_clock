@@ -3,7 +3,7 @@
 //uses an si7021 sensor and cheap 433 MHz transmitter.
 //remove the power LED and the green LED from teh si7021
 //the transmitter connects to D2. 
-//sends a new set of data about every second.
+//sends a new set of data about every 3 seconds.
 
 #include "Adafruit_Si7021.h"
 #include <RH_ASK.h>
