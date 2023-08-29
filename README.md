@@ -23,3 +23,8 @@ Drill the holes for the filament wires out to about 3/64" so the filaments don't
 Use heat shrink to make the single filament in the colon look like a colon.
 
 Wire the entire thing with 22 gage stranded. Get an assortment of colors to help stay organized. 8 colors or more is best.
+
+here's a photo of the transmitter built on a pro-mini with bme280 sensor and 433MHz transmitter.
+
+![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/transmitter.jpg)
+
