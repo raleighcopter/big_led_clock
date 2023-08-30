@@ -32,7 +32,7 @@ here's a photo of the transmitter built on a pro-mini with bme280 sensor and 433
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/transmitter.jpg)
 
-and the transmitter in teh stevenson enclosure.
+and the transmitter in the stevenson enclosure (top off).
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/TX_in_the_bracket.jpg).
 
