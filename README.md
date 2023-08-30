@@ -24,7 +24,7 @@ Use heat shrink to make the single filament in the colon look like a colon.
 
 Wire the entire thing with 22 gage stranded. Get an assortment of colors to help stay organized. 8 colors or more is best.
 
-here's a p[hoto of the clock wiring.
+here's a photo of the clock wiring.
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/clock_bottom.jpg)
 
