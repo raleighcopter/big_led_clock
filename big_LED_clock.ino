@@ -6,7 +6,7 @@ the segments of the digits are labeled as follows
         /  A /   
        /F   /B  
       /____/     
-     / G  /    
+     /  G /    
     /E   /C  
    /____/     
      D           
@@ -27,6 +27,8 @@ RH_ASK driver(2000, 40, 0, 0);
 static const uint32_t GPSBaud = 9600;
 int on = 1;
 int off = 0;
+int leading_zero_blanking = 1;
+
 
 int hours_ten_a = 27;
 int hours_ten_b = 28;
@@ -59,7 +61,8 @@ int minutes_one_d = 5;
 int minutes_one_e = 4;
 int minutes_one_f = 3;
 int minutes_one_g = 8;
-int colon = 13;
+
+int colon = 13; 
 
 int dot_count;
 int colon_val;
@@ -84,9 +87,9 @@ int hours_ten = 0;
 int hours_one = 0;
 int minutes_ten = 0;
 int minutes_one = 0;
-int nite_off = 22;  //dim after this hour. set to 24 to disable
-int morning_on = 7; //dim before this hour. set to 0 to disable
-int dim_level = 5;  // the brightness of the colon during dim hours
+int nite_off = 22;
+int morning_on = 7;
+int dim_level = 5;
 int weather_time = 0;
 int weather_valid = 0;
 int Temp;
@@ -187,7 +190,7 @@ void displayInfo()
 if (seconds - weather_time >= 10) {
   weather_valid = 0;
 }
-//weather_valid = 0;
+
 //adjust to 24 hour local time
   if (hours > 24) hours = hours - 24;
   if (hours < 1) hours = hours + 24;
@@ -269,7 +272,12 @@ analogWrite(colon, colon_val);
 
 switch(hours_ten)
 {
-  case 0: a=on;b=on;c=on;d=on;e=on;f=on;g=off;break;
+  case 0: if (leading_zero_blanking = 0) {
+    a=on;b=on;c=on;d=on;e=on;f=on;g=off;
+    } else { 
+    a=off;b=off;c=off;d=off;e=off;f=off;g=off;
+    }
+    break;
   case 1: a=off;b=on;c=on;d=off;e=off;f=off;g=off;break;
   case 2: a=on;b=on;c=off;d=on;e=on;f=off;g=on;break;
   case 3: a=on;b=on;c=on;d=on;e=off;f=off;g=on;break;
