@@ -27,8 +27,8 @@ RH_ASK driver(2000, 40, 0, 0);
 static const uint32_t GPSBaud = 9600;
 int on = 1;
 int off = 0;
-int leading_zero_blanking = 1;
-
+int leading_zero_blanking = 1; //set to 1 to enable
+int format_12 = 0; //set to 1 to enable 12 hour time
 
 int hours_ten_a = 27;
 int hours_ten_b = 28;
@@ -62,14 +62,13 @@ int minutes_one_e = 4;
 int minutes_one_f = 3;
 int minutes_one_g = 8;
 
-int colon = 13; 
+int colon = 13; //must be a PWM capable pin
 
 int dot_count;
 int colon_val;
 int hi_dot = 255;
-int lo_dot = 0;
-int offset_pin = A15;
-int dst_pin = 48;
+int offset_pin = A15; 
+int dst_pin = 48; //the dst button pin
 int hour_offset;
 
 int a;
@@ -205,16 +204,18 @@ if (seconds - weather_time >= 10) {
       hi_dot = 255;
     }
 
-//convert to 12 hour format  
-  if (hours > 12) hours = hours - 12;
-  if (hours < 1) hours = hours + 12;
+//convert to 12 hour format if 12_format = 1  
+  if (format_12 =1) {
+    if (hours > 12) hours = hours - 12;
+    if (hours < 1) hours = hours + 12;
+    }
    }
 
 
 //determine if we should display time or temp
 if ((weather_valid == 1) and seconds % 15 >= 13) {
 //display RH
-    colon_val = lo_dot;
+    colon_val = off;
     hours_ten = (RH/10);
     hours_one = (RH - (10 * hours_ten));
     minutes_ten = 11;
@@ -222,29 +223,35 @@ if ((weather_valid == 1) and seconds % 15 >= 13) {
 }
 
 if ((weather_valid == 1) and (seconds % 15 >= 11 and seconds %15 < 13) ) {
-  colon_val = lo_dot;
+  colon_val = off;
 //display temp
-  if (Temp < 0) {
+  if ((Temp < 0) and (Temp >= -9)) {
     Temp = abs(Temp);
-    hours_ten = 10;
+    hours_ten = 10;  // minus
+    hours_one = Temp;
+    minutes_ten = 10; //degrees
+    minutes_one = 11; //F
+  } else if (Temp <= -10) {
+    Temp = abs(Temp);
+    hours_ten = 10; //minus
     hours_one = (Temp/10);
     minutes_ten = (Temp - (10 * hours_one));
-    minutes_one = 10;
-  } else if ((Temp >=0) and (Temp <100)) {
+    minutes_one = 10; //degrees
+  } else if ((Temp >= 0) and (Temp <100)) {
     hours_ten = (Temp/10);
     hours_one = (Temp - (10 * hours_ten));
-    minutes_ten = 10;
-    minutes_one = 11;
-  } else if (Temp >99) {
+    minutes_ten = 10; //degrees
+    minutes_one = 11; //F
+  } else if (Temp >= 100) {
     hours_ten = 1;
     Temp = Temp - 100;
     hours_one = (Temp/10);
     minutes_ten = (Temp - (10 * hours_one));
-    minutes_one = 10;      
+    minutes_one = 10; //degrees     
     }
 }
 
-if ((seconds % 15 <= 10) or (weather_valid == 0))  {
+if ((seconds % 15 <= 10) or (weather_valid == 0)) {
 //display time
 // calculate values for separate digits to display time
   hours_ten = (hours/10);
@@ -258,7 +265,7 @@ if ((seconds % 15 <= 10) or (weather_valid == 0))  {
   switch(dot_count)
   {
     case 0: colon_val = hi_dot; break;
-    case 1: colon_val = lo_dot; break; 
+    case 1: colon_val = off; break; 
   }
 }
 
