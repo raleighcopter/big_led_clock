@@ -17,11 +17,8 @@ the DST switch is wired to D48
 the RF Receiver is wired to D40
 
 */
-#include <TinyGPS++.h>
-#include <RH_ASK.h>
-//#ifdef RH_HAVE_HARDWARE_SPI
-//#include <SPI.h> // Not actually used but needed to compile
-//#endif
+#include <TinyGPS++.h>  //TinyGPSPlus library
+#include <RH_ASK.h> // radiohead library
 RH_ASK driver(2000, 40, 0, 0);
 
 static const uint32_t GPSBaud = 9600;
