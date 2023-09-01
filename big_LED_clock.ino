@@ -19,9 +19,9 @@ the RF Receiver is wired to D40
 */
 #include <TinyGPS++.h>
 #include <RH_ASK.h>
-#ifdef RH_HAVE_HARDWARE_SPI
-#include <SPI.h> // Not actually used but needed to compile
-#endif
+//#ifdef RH_HAVE_HARDWARE_SPI
+//#include <SPI.h> // Not actually used but needed to compile
+//#endif
 RH_ASK driver(2000, 40, 0, 0);
 
 static const uint32_t GPSBaud = 9600;
@@ -29,6 +29,7 @@ int on = 1;
 int off = 0;
 int leading_zero_blanking = 1; //set to 1 to enable
 int format_12 = 0; //set to 1 to enable 12 hour time
+int receiver_code = 152; //must match transmitter code
 
 int hours_ten_a = 27;
 int hours_ten_b = 28;
@@ -145,13 +146,13 @@ void setup()
 void loop()
 {
 //get weather data if available
-  int data[2] = {0};
+  int data[3] = {0};
       uint8_t buflen = sizeof(data);
     if (driver.recv((uint8_t*)data, &buflen));
    {
-  if (data[0] != 0) {  //throw away bad data
-    RH = data[0];
-    Temp = data[1];
+  if (data[0] == receiver_code) {  //throw away bad data
+    RH = data[1];
+    Temp = data[2];
     weather_time =  seconds; //record time of weather aquisition
     weather_valid = 1; //mark weather as valid
   }
