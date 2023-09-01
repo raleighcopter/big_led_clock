@@ -17,6 +17,7 @@ RH_ASK driver(2000, 0, 2, 0);
 // RH_ASK driver(2000, 3, 4, 0); // ATTiny, RX on D3 (pin 2 on attiny85) TX on D4 (pin 3 on attiny85), 
 // RH_ASK driver(2000, PD14, PD13, 0); STM32F4 Discovery: see tx and rx on Orange and Red LEDS
 
+int transmitter_code = 152; // must match receiver code
 
 void setup()
 {
@@ -42,10 +43,11 @@ void loop() {
 //  Serial.print(sensor.readHumidity(), 2);
 //  Serial.print("\tTemperature: ");
 //  Serial.println(sensor.readTemperature(), 2);
-int data[2];
-data[0] = (sensor.readHumidity()),2; 
-data[1] = (1.8 * (sensor.readTemperature()) +32),2;
-    driver.send((uint8_t*)data,4);
+int data[3];
+data[0] = transmitter_code;
+data[1] = (sensor.readHumidity()),2; 
+data[2] = (1.8 * (sensor.readTemperature()) +32),2;
+    driver.send((uint8_t*)data,6);
     driver.waitPacketSent();
   //  Serial.print("Sent: ");Serial.print(data[0]);Serial.println(data[1]);
     delay(3000);
