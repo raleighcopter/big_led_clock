@@ -25,7 +25,7 @@ static const uint32_t GPSBaud = 9600;
 int on = 1;
 int off = 0;
 int leading_zero_blanking = 1; //set to 1 to enable
-int format_12 = 0; //set to 1 to enable 12 hour time
+int format_12 = 0; //set to 1 to enable 24 hour time
 int receiver_code = 152; //must match transmitter code
 
 int hours_ten_a = 27;
