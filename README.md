@@ -1,7 +1,5 @@
 Big Clock
 
-![](https://github.com/raleighcopter/big_led_clock/blob/main/clock.mp4)
-
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/clock.jpg)
 
 Some notes...
