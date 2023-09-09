@@ -14,7 +14,7 @@ uses 68mm 3v filaments sourced from aliexpress. digits are about 6.5" tall. get 
 
 the clock software now has the ability to blank leading zeros and the ability to display in 12 or 24 hour format.
 
-now has the option to add a couple transistors (ss8550 with 1k base resistor) and configure the software to dim the entire display during night hours or without the addition of 2 transistors, to dim the colon and turn the digits off. You can optionally omit the buck converter but it does add some display brightness control, especially if you omit the 228550 transistors which can dim the digits.
+now has the option to add a couple transistors (ss8550 with 1k base resistor) and configure the software to dim the entire display during night hours or without the addition of 2 transistors, to dim the colon and turn the digits off. You can optionally omit the buck converter but it does add some display brightness control, especially if you omit the ss8550 transistors which can dim the digits with a bit of code changes.
 
 Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress. the digits are wired common cathode.
 ![](https://github.com/raleighcopter/big_led_clock/blob/main/digit_back.jpg)
