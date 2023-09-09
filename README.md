@@ -4,7 +4,9 @@ Big Clock
 
 Some notes...
 
-the clock software now has the ability to blank leading zeros and the ability to display in 12 or 24 hour format. coming soon is an option to add a couple transistors and configure the software to dim the entire display during night hours or without the addition of 2 transistors, to dim the colon and turn the digits off.
+the clock software now has the ability to blank leading zeros and the ability to display in 12 or 24 hour format.
+
+now has the option to add a couple transistors (ss8550 with 1k base resistor) and configure the software to dim the entire display during night hours or without the addition of 2 transistors, to dim the colon and turn the digits off.
 
 Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress.
 
