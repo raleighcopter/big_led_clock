@@ -13,7 +13,7 @@ now has the option to add a couple transistors (ss8550 with 1k base resistor) an
 
 Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress.
 
-THE 433 MHZ functionality is now working and an optional transmitter with si7021 temp/rh sensor can be used to wirelessly transmit weather data to the clock. you can build the clock with the receiver and build the transmitter at a later date and the clock will only display time unless a transmitter with matching transmitter code is detected.
+THE 433 MHZ functionality is now working and an optional transmitter with bme280 (recommend) or si7021 temp/rh sensor can be used to wirelessly transmit weather data to the clock. you can build the clock with the receiver and build the transmitter at a later date and the clock will only display time unless a transmitter with matching transmitter code is detected.
 
 The 3v converter can be omitted but you won't be able to set the brightness of the LEDs if you do so play with the value of the series resistors for the LEDs if you omit the buck converter. You want at least 100 ohm series resistors, possibly higher.
   
