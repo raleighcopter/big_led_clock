@@ -32,7 +32,7 @@ I used 1/4" poplar for the base and painted it with some hammer tone grey paint.
 
 I used 3er perf board to build the circuit. It's available cheapest on eBay.
 
-The GPS module is a neo6m module from AliExpress and it provides an accurate time source.
+The GPS module is a neo6m module from AliExpress and it provides an accurate time source. more importantly, after a power outage, the clock will come back with the correct time withput the need to set the clock.
 
 Drill the holes for the filament wires out to about 3/64" so the filaments don't break when installing them.they should be just big enough to get the wire and solder through but not too big or the filament won't stay in place. the LEDs are very fragile and you will break a few.
 
