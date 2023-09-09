@@ -36,7 +36,7 @@ The GPS module is a neo6m module from AliExpress and it provides an accurate tim
 
 Drill the holes for the filament wires out to about 3/64" so the filaments don't break when installing them.they should be just big enough to get the wire and solder through but not too big or the filament won't stay in place. the LEDs are very fragile and you will break a few.
 
-Use heat shrink to make the single filament in the colon look like a colon.
+Use 1/8" heat shrink to make the single filament in the colon look like a colon.
 
 Wire the entire thing with 22 gage stranded. Get an assortment of colors to help stay organized. 8 colors or more is best.
 
