@@ -1,6 +1,7 @@
 Big Clock
 
-https://github.com/raleighcopter/big_led_clock/blob/main/clock_vid.mp4
+
+https://github.com/raleighcopter/big_led_clock/assets/23077474/2a1ce6a6-a4e3-4e48-bb61-2eedfd59ad8a
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/clock.jpg)
 
