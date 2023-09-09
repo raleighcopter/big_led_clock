@@ -170,7 +170,7 @@ void loop()
     Serial.println(F("No GPS detected: check wiring."));
     while(true);
   }
-  hour_offset = map(analogRead(offset_pin), 0, 1023, -11, 0) + digitalRead(dst_pin);
+  hour_offset = map(analogRead(offset_pin), 0, 1023, -23, 0) + digitalRead(dst_pin);
 
 }
 
