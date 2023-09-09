@@ -1,4 +1,4 @@
-BFC 1.0 (Big Filament Clock)
+BFC 1.0 (Big Filament Clock 1.0)
 
 ![](https://github.com/raleighcopter/big_led_clock/blob/main/clock.gif)
 
@@ -6,7 +6,11 @@ BFC 1.0 (Big Filament Clock)
 
 Some notes...
 
-uses 68mm 3v filaments sourced from aliexpress. digits are about 6.5" tall. get the gos module there too.
+this clock is 17" x8" x 2.5" overall.
+
+uses 68mm 3v filaments sourced from aliexpress. digits are about 6.5" tall. get the gps module there too.
+
+![](https://github.com/raleighcopter/big_led_clock/blob/main/filaments.jpg)
 
 the clock software now has the ability to blank leading zeros and the ability to display in 12 or 24 hour format.
 
