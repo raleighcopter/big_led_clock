@@ -211,7 +211,7 @@ if (seconds - weather_time >= 10) {
       analogWrite(display_dim_pin, 0);
     }
 
-//convert to 12 hour format if 12_format = 1  
+//convert to 12 hour format if format_12 = 1  
   if (format_12 = 1) {
     if (hours > 12) hours = hours - 12;
     if (hours < 1) hours = hours + 12;
