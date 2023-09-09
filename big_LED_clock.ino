@@ -26,7 +26,7 @@ static const uint32_t GPSBaud = 9600;
 int on = 1;
 int off = 0;
 int leading_zero_blanking = 1; //set to 1 to enable
-int format_12 = 1; //set to 0 to enable 24 hour time
+int format_12 = 1; //set to 2 to enable 24 hour time
 int receiver_code = 152; //must match transmitter code
 int dimmable_display = 1; //set to 1 if the display is wired with a PNP transistor (ss8550 with 1k base resistor) on the display power wire
 
@@ -170,7 +170,7 @@ void loop()
     Serial.println(F("No GPS detected: check wiring."));
     while(true);
   }
-  hour_offset = map(analogRead(offset_pin), 0, 1023, -23, 0) + digitalRead(dst_pin);
+  hour_offset = map(analogRead(offset_pin), 0, 1023, ((12*format_12)-1), 0) + digitalRead(dst_pin);
 
 }
 
