@@ -18,7 +18,8 @@ the RF Receiver is wired to D40
 
 */
 #include <TinyGPS++.h>  //TinyGPSPlus library
-#include <RH_ASK.h> // radiohead library
+#include <RH_ASK.h>     //Radiohead library
+
 RH_ASK driver(2000, 40, 0, 0);
 
 static const uint32_t GPSBaud = 9600;
@@ -27,6 +28,9 @@ int off = 0;
 int leading_zero_blanking = 1; //set to 1 to enable
 int format_12 = 0; //set to 1 to enable 24 hour time
 int receiver_code = 152; //must match transmitter code
+int dimmable_display = 1; //set to 1 if the display is wired with a PNP transistor (ss8550 with 1k base resistor) on the display power wire
+
+int display_dim_pin = 44; //optional pwm pin for display digit dimming
 
 int hours_ten_a = 27;
 int hours_ten_b = 28;
@@ -194,16 +198,21 @@ if (seconds - weather_time >= 10) {
 
 // dim during off hours
     if ((hours > nite_off) or (hours < morning_on)) {
-    on = 0; 
-    hi_dot = dim_level;
-    }
-    else {
-      on = 1;
+      hi_dot = dim_level; //dim the colon
+      if (dimmable_display == 1) { //dim the digits if they're dimmable
+        analogWrite(display_dim_pin, (255 - dim_level));
+      }
+      else {
+        on = 0; //digits not dimmable so turn them off
+      }
+    } else {
       hi_dot = 255;
+      on = 1;
+      analogWrite(display_dim_pin, 0);
     }
 
 //convert to 12 hour format if 12_format = 1  
-  if (format_12 =1) {
+  if (format_12 = 1) {
     if (hours > 12) hours = hours - 12;
     if (hours < 1) hours = hours + 12;
     }
