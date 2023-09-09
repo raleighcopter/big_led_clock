@@ -16,7 +16,11 @@ the clock software now has the ability to blank leading zeros and the ability to
 
 now has the option to add a couple transistors (ss8550 with 1k base resistor) and configure the software to dim the entire display during night hours or without the addition of 2 transistors, to dim the colon and turn the digits off. if you build with these transistors, you can optionally omit the buck converter.
 
-Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress.
+Order extra LED filaments. They're brittle, fragile and you will break more than one. Sourced from AliExpress. the digits are wired common cathode.
+![](https://github.com/raleighcopter/big_led_clock/blob/main/digit_back.jpg)
+
+Here's a picture of the front.
+![](https://github.com/raleighcopter/big_led_clock/blob/main/digit.jpg)
 
 THE 433 MHZ functionality is now working and an optional transmitter with bme280 (recommend) or si7021 temp/rh sensor can be used to wirelessly transmit weather data to the clock. you can build the clock with the receiver and build the transmitter at a later date and the clock will only display time unless a transmitter with matching transmitter code is detected.
 
