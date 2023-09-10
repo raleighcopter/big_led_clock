@@ -88,8 +88,8 @@ int hours_ten = 0;
 int hours_one = 0;
 int minutes_ten = 0;
 int minutes_one = 0;
-int nite_off = 22;
-int morning_on = 7;
+int nite_off = 23; // dim display at this hour and after
+int morning_on = 7; // dim display before this hour
 int dim_level = 5;
 int weather_time = 0;
 int weather_valid = 0;
@@ -197,7 +197,7 @@ if (seconds - weather_time >= 10) {
   if (hours < 1) hours = hours + 24;
 
 // dim during off hours
-    if ((hours > nite_off) or (hours < morning_on)) {
+    if ((hours >= nite_off) or (hours < morning_on)) {
       hi_dot = dim_level; //dim the colon
       if (dimmable_display == 1) { //dim the digits if they're dimmable
         analogWrite(display_dim_pin, (255 - dim_level));
