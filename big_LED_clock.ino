@@ -11,26 +11,27 @@ the segments of the digits are labeled as follows
    /____/     
      D           
 
-the pot is wired to A15, gnd, 5v
 the gps is wired to serial3 (14,15)
-the DST switch is wired to D48
 the RF Receiver is wired to D40
 
 */
-#include <TinyGPS++.h>  //TinyGPSPlus library
-#include <RH_ASK.h>     //Radiohead library
 
-RH_ASK driver(2000, 40, 0, 0);
 
-static const uint32_t GPSBaud = 9600;
-int on = 1;
-int off = 0;
+//make confog changes in the area of code below
+
 int leading_zero_blanking = 1; //set to 1 to enable
 int format_12 = 1; //set to 2 to enable 24 hour time
 int receiver_code = 152; //must match transmitter code
 int dimmable_display = 1; //set to 1 if the display is wired with a PNP transistor (ss8550 with 1k base resistor) on the display power wire
-
+int nite_off = 23; // dim display at this hour and after
+int morning_on = 7; // dim display before this hour
+int dim_level = 5; //amount to dim display (0-255)
 int display_dim_pin = 44; //optional pwm pin for display digit dimming
+int offset_pin = A15; //analog pin for hour offset pot
+int dst_pin = 48; //the dst button pin
+int RF_data_pin = 40; //the receiver data pin
+
+//pins that the display segments are wired to are defined below
 
 int hours_ten_a = 27;
 int hours_ten_b = 28;
@@ -64,13 +65,23 @@ int minutes_one_e = 4;
 int minutes_one_f = 3;
 int minutes_one_g = 8;
 
-int colon = 13; //must be a PWM capable pin
+int colon = 13; // the pin that the colon is wired to. must be a PWM capable pin
 
+// make config changes above this line only
+
+#include <TinyGPS++.h>  //TinyGPSPlus library
+#include <RH_ASK.h>     //Radiohead library
+
+RH_ASK driver(2000, RF_data_pin, 0, 0);
+
+static const uint32_t GPSBaud = 9600;
+
+int on = 1;
+int off = 0;
 int dot_count;
 int colon_val;
 int hi_dot = 255;
-int offset_pin = A15; 
-int dst_pin = 48; //the dst button pin
+
 int hour_offset;
 
 int a;
@@ -88,9 +99,7 @@ int hours_ten = 0;
 int hours_one = 0;
 int minutes_ten = 0;
 int minutes_one = 0;
-int nite_off = 23; // dim display at this hour and after
-int morning_on = 7; // dim display before this hour
-int dim_level = 5;
+
 int weather_time = 0;
 int weather_valid = 0;
 int Temp;
