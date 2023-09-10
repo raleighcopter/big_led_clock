@@ -16,7 +16,7 @@ the gps is wired to serial3 (14,15)
 */
 
 
-//make confog changes in the area of code below
+//make config changes in the area of code below
 
 int leading_zero_blanking = 1; //set to 1 to enable
 int format_12 = 1; //set to 2 to enable 24 hour time
