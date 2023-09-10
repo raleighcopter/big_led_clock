@@ -12,7 +12,6 @@ the segments of the digits are labeled as follows
      D           
 
 the gps is wired to serial3 (14,15)
-the RF Receiver is wired to D40
 
 */
 
