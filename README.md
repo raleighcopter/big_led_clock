@@ -38,7 +38,7 @@ Drill the holes for the filament wires out to about 3/64" so the filaments don't
 
 Use 1/8" black heat shrink to make the single filament in the colon look like a colon.
 
-Wire the entire thing with 22 gage stranded. Get an assortment of colors to help stay organized. 8 colors or more is best.
+Wire the entire thing with 26 gage stranded. Get an assortment of colors to help stay organized. 8 colors or more is best.
 
 here's a photo of the clock wiring.
 
