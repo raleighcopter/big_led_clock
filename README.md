@@ -44,7 +44,7 @@ here's a photo of the clock wiring.
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/clock_bottom.jpg)
 
-here's a photo of the transmitter built on a pro-mini with bme280 sensor and 433MHz transmitter. it can be built using the BME280 or the si7021 sensor. firmware for each is provided. i didn't do a schematic for the transmitter because its fairly trivial. the sensors are i2c ans the transmitter pin is in the source code. the si7021 doesn't do well with relative humidity above 80% for extended periods which is daily around here so i use the BME280. 
+here's a photo of the transmitter built on a pro-mini with bme280 sensor and 433MHz transmitter. it can be built using the BME280 or the si7021 sensor. firmware for each is provided. i didn't do a schematic for the transmitter because its fairly trivial. the sensors are i2c and the transmitter pin is listed in the source code. the si7021 doesn't do well with relative humidity above 80% for extended periods which is daily around here so i use the BME280. 
 
 ![](https://raw.githubusercontent.com/raleighcopter/big_led_clock/main/transmitter.jpg)
 
