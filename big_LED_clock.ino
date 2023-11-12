@@ -16,10 +16,10 @@ the gps is wired to serial3 (14,15)
 */
 
 
-//make config changes in the area of code below
+//make confog changes in the area of code below
 
 int leading_zero_blanking = 1; //set to 1 to enable
-int format_12 = 1; //set to 1 to enable 12 hour time
+int format_12 = 1; //set to 2 to enable 24 hour time
 int receiver_code = 152; //must match transmitter code
 int dimmable_display = 1; //set to 1 if the display is wired with a PNP transistor (ss8550 with 1k base resistor) on the display power wire
 int nite_off = 23; // dim display at this hour and after
@@ -162,7 +162,7 @@ void loop()
   if (data[0] == receiver_code) {  //throw away bad data
     RH = data[1];
     Temp = data[2];
-    weather_time =  seconds; //record time of weather aquisition
+    weather_time =  (60 * minutes) + seconds; //record time of weather aquisition
     weather_valid = 1; //mark weather as valid
   }
 }
@@ -196,7 +196,7 @@ void displayInfo()
 
 
 //invalidate weather data that's too old
-if (seconds - weather_time >= 10) {
+if ((60 * minutes + seconds) - weather_time >= 60) {
   weather_valid = 0;
 }
 
@@ -219,6 +219,12 @@ if (seconds - weather_time >= 10) {
       analogWrite(display_dim_pin, 0);
     }
 
+//ramp up during morning_on hour
+
+
+//ramp down during nite_off hour
+
+
 //convert to 12 hour format if format_12 = 1  
   if (format_12 == 1) {
     if (hours > 12) hours = hours - 12;
@@ -228,7 +234,7 @@ if (seconds - weather_time >= 10) {
 
 
 //determine if we should display time or temp
-if ((weather_valid == 1) and seconds % 15 >= 13) {
+if ((weather_valid == 1) and seconds % 10 >= 8) {
 //display RH
     colon_val = off;
     hours_ten = (RH/10);
@@ -237,7 +243,7 @@ if ((weather_valid == 1) and seconds % 15 >= 13) {
     minutes_one = 12;
 }
 
-if ((weather_valid == 1) and (seconds % 15 >= 11 and seconds %15 < 13) ) {
+if ((weather_valid == 1) and (seconds % 10 >= 6 and seconds %10 < 8) ) {
   colon_val = off;
 //display temp
   if ((Temp < 0) and (Temp >= -9)) {
@@ -266,7 +272,7 @@ if ((weather_valid == 1) and (seconds % 15 >= 11 and seconds %15 < 13) ) {
     }
 }
 
-if ((seconds % 15 <= 10) or (weather_valid == 0)) {
+if ((seconds % 10 <= 5) or (weather_valid == 0)) {
 //display time
 // calculate values for separate digits to display time
   hours_ten = (hours/10);
